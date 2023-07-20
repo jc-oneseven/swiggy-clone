@@ -1,0 +1,67 @@
+:root {
+  --var-body-bg: #fbf3ef;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: var(--var-body-bg);
+}
+
+.header {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: var(--var-body-bg);
+}
+.header img {
+  width: 60px;
+}
+
+nav > ul {
+  display: flex;
+  list-style: none;
+}
+
+nav > ul > li {
+  padding: 10px;
+}
+
+.restraunt-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+}
+.restraunt-card {
+  width: 200px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.restraunt-card img {
+  width: 100%;
+}
+
+.restraunt-card > * {
+  margin: 4px 0;
+}
+.restraunt-detail {
+  display: flex;
+  gap: 1rem;
+}
+.skeleton-cards {
+  width: 200px;
+  height: 250px;
+  background-color: #a7a7a7;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
