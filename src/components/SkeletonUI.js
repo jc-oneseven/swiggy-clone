@@ -1,6 +1,6 @@
 const SkeletonUI = () => {
   return (
-    <div className="restraunt-card-list">
+    <div data-testid="skeleton" className="restraunt-card-list">
       {Array(15)
         .fill("")
         .map((item, index) => (

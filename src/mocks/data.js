@@ -1,5 +1,3 @@
-export const MENU_DATA = 
-
 export const RESTAURANT_DATA = {
   statusCode: 0,
   data: {

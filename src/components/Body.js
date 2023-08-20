@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 function searchRestraunt(searchText, restrauntList) {
   return restrauntList?.filter((restraurant) =>
-    restraurant?.data?.name?.toLowerCase().includes(searchText.toLowerCase())
+    restraurant?.info?.name?.toLowerCase().includes(searchText.toLowerCase())
   );
 }
 
@@ -26,19 +26,26 @@ const Body = () => {
   async function getAllRestraurants() {
     const data = await fetch(RESTAURANT_API);
     const json = await data.json();
-    setAllRestraurants(json?.data?.cards[2]?.data?.data?.cards);
-    setFilteredRestraurants(json?.data?.cards[2]?.data?.data?.cards);
+
+    setAllRestraurants(
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilteredRestraurants(
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   }
-  if (allRestraurants.length === 0) return <SkeletonUI />;
+  if (allRestraurants?.length === 0) return <SkeletonUI />;
   return (
     <>
       <input
+        data-testid="search-input"
         type="text"
         placeholder="Search"
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
       />
       <button
+        data-testid="search-btn"
         onClick={() => {
           const data = searchRestraunt(searchText, allRestraurants);
           console.log(data);
@@ -47,14 +54,14 @@ const Body = () => {
         Search
       </button>
 
-      <div className="restraunt-card-list">
-        {filteredRestraurants.length > 0 ? (
+      <div className="restraunt-card-list" data-testid="res-list">
+        {filteredRestraurants?.length > 0 ? (
           filteredRestraurants.map((restraunt) => {
             return (
               <Link
-                key={restraunt.data.id}
-                to={"/restraunt/" + restraunt.data.id}>
-                <RestrauntCard {...restraunt.data} />
+                key={restraunt.info.id}
+                to={"/restraunt/" + restraunt.info.id}>
+                <RestrauntCard {...restraunt.info} />
               </Link>
             );
           })
