@@ -1,5 +1,9 @@
+import UseOnline from "../utils/UseOnline";
+
 const Footer = () => {
-  return <h2> Footer </h2>;
+  const isOnline = UseOnline();
+
+  return <div data-testid="online-status">{isOnline ? "✅" : "🛑"}</div>;
 };
 
 export default Footer;

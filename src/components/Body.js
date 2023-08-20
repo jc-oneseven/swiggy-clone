@@ -3,6 +3,7 @@ import RestrauntCard from "./RestraurantCard";
 import { RESTAURANT_API } from "../constants";
 import SkeletonUI from "./SkeletonUI";
 import { Link } from "react-router-dom";
+import Searchbar from "./Searchbar";
 
 // import { Link } from "react-router-dom";
 
@@ -15,8 +16,6 @@ function searchRestraunt(searchText, restrauntList) {
 const Body = () => {
   const [allRestraurants, setAllRestraurants] = useState([]);
   const [filteredRestraurants, setFilteredRestraurants] = useState([]);
-
-  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     console.log("Re-render");
@@ -34,40 +33,42 @@ const Body = () => {
       json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   }
-  if (allRestraurants?.length === 0) return <SkeletonUI />;
+  if (allRestraurants?.length === 0)
+    return (
+      <div className="container mx-auto p-4">
+        <SkeletonUI />
+      </div>
+    );
   return (
     <>
-      <input
-        data-testid="search-input"
-        type="text"
-        placeholder="Search"
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-      />
-      <button
-        data-testid="search-btn"
-        onClick={() => {
+      <Searchbar
+        onSearch={(searchText) => {
           const data = searchRestraunt(searchText, allRestraurants);
-          console.log(data);
           setFilteredRestraurants(data);
-        }}>
-        Search
-      </button>
+        }}
+      />
+      <div className="container mx-auto p-4">
+        <h1 className="text-orange-600 font-bold mb-4 text-2xl">
+          {" "}
+          All Restaurants{" "}
+        </h1>
 
-      <div className="restraunt-card-list" data-testid="res-list">
-        {filteredRestraurants?.length > 0 ? (
-          filteredRestraurants.map((restraunt) => {
-            return (
-              <Link
-                key={restraunt.info.id}
-                to={"/restraunt/" + restraunt.info.id}>
-                <RestrauntCard {...restraunt.info} />
-              </Link>
-            );
-          })
-        ) : (
-          <h1> No restraunt found! </h1>
-        )}
+        <div className="flex flex-wrap gap-5 " data-testid="res-list">
+          {filteredRestraurants?.length > 0 ? (
+            filteredRestraurants.map((restraunt) => {
+              return (
+                <Link
+                  className="w-56 bg-slate-100 p-4 block shadow-sm rounded-sm"
+                  key={restraunt.info.id}
+                  to={"/restraunt/" + restraunt.info.id}>
+                  <RestrauntCard {...restraunt.info} />
+                </Link>
+              );
+            })
+          ) : (
+            <h1> No restraunt found! </h1>
+          )}
+        </div>
       </div>
     </>
   );
